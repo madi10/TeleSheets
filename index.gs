@@ -1,9 +1,10 @@
 //CONFIG
-var BOT_TOKEN = "5580616658:AAHZqO5QxNO9qtr" //BOT TOKEN ANDA
-var SS_URL = "https://docs.google.com/spreadsheets/d/1gEY/edit#gid=0" //URL SPREADSHEET
-var SHEET_NAME = "DAFTAR" //NAMA SHEET
+var BOT_TOKEN = "5737307503:AAE9I2nSV4gN9f5m" //BOT TOKEN ANDA
+var SS_URL = "https://docs.google.com/spreadsheets/d/1pS6qgQ1zfPI/edit#gid=0" //URL SPREADSHEET
+var SHEET_NAME = "Masuk" //NAMA SHEET
 var USERS = [
-  490227369
+  49022,
+  60541
 ] //CHAT ID, bisa lebih dari 1
 
 
@@ -33,29 +34,26 @@ function commands(update) {
 
   if (USERS.includes(chatId)) {
 
-    if (text.startsWith("/start")) {
+    if (text.startsWith("/mulai")) {
       sendMessage({
         chat_id: chatId,
-        text: "Input data dengan cara \n/new [kodeharga] [#kodeseri] [persamaan1, persamaan2 dst]"
+        text: "Input data dengan cara \n/masuk [#Harga] [Keterangan1, Keterangan2 dst]"
       })
-    } else if (text.startsWith("/new")) {
-      let persamaan,
-        kodeharga,
-        kodeseri,
+    } else if (text.startsWith("/masuk")) {
+      let Keterangan,
+        Harga,
         stext = text.split(' ')
 
-      kodeharga = stext[1];
-      kodeseri = stext[2].startsWith('#') ? stext[2].replace('#', '') : '';
-      stext.splice(0, 3);
-      persamaan = stext.join(' ')
+      Harga = stext[1].startsWith('#') ? stext[1].replace('#', '') : '';
+      stext.splice(0, 2);
+      Keterangan = stext.join(' ')
 
 
-      if (kodeharga && kodeseri && persamaan) {
+      if (Harga && Keterangan) {
         insert_value([
           tanggal,
-          kodeseri,
-          persamaan,
-          kodeharga,
+          Harga,
+          Keterangan,
           chatId,
           first_name
         ], SHEET)
@@ -68,7 +66,7 @@ function commands(update) {
       } else {
         sendMessage({
           chat_id: chatId,
-          text: 'Gagal. Pastikan sesuai format. \n/new [kodeharga] [#kodeseri] [persamaan1, persamaan2 dst]'
+          text: 'Gagal. Pastikan sesuai format. \n/masuk [#Harga] [Keterangan1, Keterangan2 dst]'
         })
       }
     }
